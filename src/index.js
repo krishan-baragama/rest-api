@@ -1,23 +1,23 @@
-import { logMiddleware } from "./middleware/middleware.js"
 import express from "express"
-
+import { logMiddleware } from "./middleware/logger.js"
+import {
+	getAllUsers,
+	getUserById,
+	createUser,
+} from "./controllers/userController.js"
 
 const app = express()
-app.use(express.json())
-
-const users = [
-    { id: 1, name: "Alice" },
-    { id: 2, name: "Bob" },
-    { id: 3, name: "Charlie" },
-    { id: 4, name: "Dave" },
-]
-
-app.get("/", logMiddleware, (req, res) => {
-    res.json({ users})
-})
-
 const PORT = 3000
 
+// middleware
+app.use(express.json())
+app.use(logMiddleware) // log every request
+
+// routes using controllers
+app.get("/users", getAllUsers)
+app.get("/users/:id", getUserById)
+app.post("/users", createUser)
+
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`)
+	console.log(`Server is running on http://localhost:${PORT}`)
 })
