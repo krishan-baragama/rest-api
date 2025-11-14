@@ -1,27 +1,29 @@
-Perfect — here is a **professional, clean, and submission-ready README.md** for your REST API project.
 
-You can copy/paste this directly into your `README.md` file.
-It matches **everything in your project**, including Models, Services, SQLite, API Key, Environment Variables, and Render deployment.
 
----
+# 📘 REST API – Users & Video Games (Express + SQLite)
 
-# 📘 REST API – Users Management (Express + SQLite)
+A complete REST API built using **Node.js**, **Express**, **SQLite**, **Environment Variables**, and a **full MVC architecture**.
 
-A simple and clean REST API built with **Node.js**, **Express**, **SQLite**, and a full MVC structure (Models → Services → Controllers).
-Includes **Environment Variables**, **API Key protection**, and **Deployment on Render**.
+The API supports two resources:
+
+* 👤 **Users**
+* 🎮 **Video Games** ← *your custom resource (Your Turn!)*
+
+Includes API key protection and deployment on Render.
 
 ---
 
 ## 🚀 Features
 
 * ✔ Express REST API
-* ✔ SQLite database using **better-sqlite3**
-* ✔ Proper project architecture (MVC + services + middleware)
-* ✔ Environment variables using `.env`
-* ✔ API Key authentication middleware
-* ✔ Dynamic database initialization + seeding
-* ✔ Render deployment ready
-* ✔ Modular and scalable structure
+* ✔ SQLite database (`better-sqlite3`)
+* ✔ MVC + Services + Middleware
+* ✔ Environment variables via `.env`
+* ✔ API Key authentication
+* ✔ Request logging middleware
+* ✔ Auto-create & seed database
+* ✔ Fully deployed on Render
+* ✔ Two full resource modules (Users + Video Games)
 
 ---
 
@@ -30,40 +32,42 @@ Includes **Environment Variables**, **API Key protection**, and **Deployment on 
 ```
 src/
 ├── config/
-│   ├── config.js           # Loads environment variables
-│   └── database.js         # SQLite database setup
+│   ├── config.js              # Loads environment variables
+│   └── database.js            # SQLite database setup + seeding
 │
 ├── controllers/
-│   └── userController.js   # Handles HTTP requests
+│   ├── userController.js
+│   └── videoGameController.js   ← NEW
 │
 ├── middleware/
-│   ├── apiKey.js           # API key validation
-│   └── logger.js           # Request logging
+│   ├── apiKey.js
+│   └── logger.js
 │
 ├── models/
-│   └── User.js             # User model (schema + queries)
+│   ├── User.js
+│   └── VideoGame.js            ← NEW
 │
 ├── routes/
-│   └── userRoutes.js       # Route definitions
+│   ├── userRoutes.js
+│   └── videoGameRoutes.js      ← NEW
 │
 ├── services/
-│   └── userService.js      # Business logic
+│   ├── userService.js
+│   └── videoGameService.js     ← NEW
 │
-└── index.js                # Server entry point
+└── index.js                    # Server entry point
 ```
 
 ---
 
-## 🔧 Installation & Setup
+## 🔧 Installation
 
 ### 1️⃣ Clone the project
 
 ```bash
-git clone <repository-url>
+git clone <repo-url>
 cd rest-api
 ```
-
----
 
 ### 2️⃣ Install dependencies
 
@@ -73,15 +77,9 @@ npm install
 
 ---
 
-### 3️⃣ Create your `.env` file
+## 🔐 Environment Variables
 
-Create a new file:
-
-```
-.env
-```
-
-Copy this inside:
+Create **`.env`** in project root:
 
 ```env
 PORT=3000
@@ -89,99 +87,94 @@ NODE_ENV=development
 
 DATABASE_URL=./database.sqlite
 
-API_KEY=my-super-secret-api-key
+API_KEY=my-secret-api-key
 
-JWT_SECRET=your-secret-key-min-32-characters
+JWT_SECRET=super-secret-32-characters-min
 JWT_EXPIRES_IN=24h
 ```
 
-⚠️ **Do NOT share this file. Do NOT commit it to Git.**
+Do NOT commit `.env`.
 
-Your repo already includes `.env.example`, which is safe.
+`.env.example` is included as a safe template.
 
 ---
 
-### 4️⃣ Start the development server
+## ▶ Running the API
 
 ```bash
 npm run dev
 ```
 
-You should see:
+If database is empty, it will automatically:
 
-```
-🔧 Initializing database...
-📝 Seeding users table...
-✅ Server running on http://localhost:3000
-```
+* Create tables (`users`, `video_games`)
+* Insert sample data (development only)
 
 ---
 
 ## 🗄 Database
 
-This project uses **SQLite** with `better-sqlite3`.
-
-* Database file is created automatically
-* Tables are created automatically
-* Sample data is seeded only in development
-
-Database file:
+SQLite file:
 
 ```
 database.sqlite
 ```
 
-(Automatically ignored by Git)
+Automatically created on first run.
+
+Ignored by Git.
 
 ---
 
-## 🔑 API Key Authentication
+## 🔑 API Key Protection
 
-All `/users` routes are protected.
+All `/users` and `/games` routes are protected.
 
-You must send your API key using:
+You must send:
 
-### Option A — Header `X-API-Key`
-
-```
-X-API-Key: my-super-secret-api-key
-```
-
-### Option B — Authorization header
+### Option A — Header
 
 ```
-Authorization: Bearer my-super-secret-api-key
+X-API-Key: my-secret-api-key
 ```
 
-If the key is missing or invalid:
+### Option B — Authorization
 
-* Missing → **401 Unauthorized**
-* Wrong → **403 Forbidden**
+```
+Authorization: Bearer my-secret-api-key
+```
+
+Errors:
+
+* Missing key → **401 Unauthorized**
+* Wrong key → **403 Forbidden**
 
 ---
 
-## 📡 API Endpoints
-
-### 🟢 Public Routes
-
-| Method | Endpoint  | Description     |
-| ------ | --------- | --------------- |
-| GET    | `/`       | Welcome message |
-| GET    | `/health` | Health check    |
+# 📡 API Endpoints
 
 ---
 
-### 🔒 Protected Routes (require API key)
+# 🟢 Public Endpoints
 
-| Method | Endpoint     | Description     |
-| ------ | ------------ | --------------- |
-| GET    | `/users`     | Get all users   |
-| GET    | `/users/:id` | Get user by ID  |
-| POST   | `/users`     | Create new user |
-| PUT    | `/users/:id` | Update user     |
-| DELETE | `/users/:id` | Delete user     |
+| Method | Endpoint  | Description  |
+| ------ | --------- | ------------ |
+| GET    | `/`       | Welcome      |
+| GET    | `/health` | Health check |
 
-### Example Request Body (POST/PUT)
+---
+
+# 🔵 USERS (Protected)
+
+| Method | Endpoint     | Description    |
+| ------ | ------------ | -------------- |
+| GET    | `/users`     | Get all users  |
+| GET    | `/users/:id` | Get user by ID |
+| POST   | `/users`     | Create user    |
+| PUT    | `/users/:id` | Update user    |
+| DELETE | `/users/:id` | Delete user    |
+
+### Example user JSON
 
 ```json
 {
@@ -192,10 +185,37 @@ If the key is missing or invalid:
 
 ---
 
-## 🚀 Deployment (Render)
+# 🟣 VIDEO GAMES (Protected)
 
-1. Push to GitHub
-2. Create a **Render → Web Service**
+*(Your custom resource!)*
+
+| Method | Endpoint     | Description    |
+| ------ | ------------ | -------------- |
+| GET    | `/games`     | Get all games  |
+| GET    | `/games/:id` | Get game by ID |
+| POST   | `/games`     | Create game    |
+| PUT    | `/games/:id` | Update game    |
+| DELETE | `/games/:id` | Delete game    |
+
+### Example game JSON
+
+```json
+{
+  "title": "Elden Ring",
+  "genre": "Action RPG",
+  "platform": "PC",
+  "releaseYear": 2022,
+  "rating": 9.5,
+  "price": 59.99
+}
+```
+
+---
+
+# 🌍 Deployment (Render)
+
+1. Connect GitHub repository
+2. Create a **Web Service**
 3. Add Environment Variables:
 
 ```
@@ -207,11 +227,11 @@ JWT_SECRET=your-secret
 JWT_EXPIRES_IN=24h
 ```
 
-4. Set Build & Start commands:
+4. Set build commands:
 
 ```
-Build:   npm install
-Start:   npm start
+Build: npm install
+Start: npm start
 ```
 
 5. Deploy 🎉
@@ -221,17 +241,15 @@ Start:   npm start
 ## 👤 Author
 
 **Krishan Baragama**
-REST API Project — EPITA
-2025
+EPITA – REST API Project (2025)
 
 ---
 
-## ✔ License
+## 📝 License
 
-This project is for educational purposes.
+For educational use.
 
 ---
 
-# 🎉 Done!
-
+# 🎉 Done
 
