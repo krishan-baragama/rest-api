@@ -220,7 +220,7 @@ Start:   npm start
 
 ## 👤 Author
 
-**Your Name**
+**Krishan Baragama**
 REST API Project — EPITA
 2025
 
