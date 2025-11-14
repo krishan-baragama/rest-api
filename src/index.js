@@ -4,6 +4,8 @@ import { logMiddleware } from "./middleware/logger.js"
 import { validateApiKey, validateApiKeyProduction } from "./middleware/apiKey.js"  // Import API key middleware
 import userRoutes from "./routes/userRoutes.js"
 import { initializeDatabase } from "./config/database.js"
+import videoGameRoutes from "./routes/videoGameRoutes.js"
+
 
 const app = express()
 
@@ -22,7 +24,8 @@ app.get('/', (req, res) => {
 		version: "1.0.0",
 		environment: config.nodeEnv,
 		endpoints: {
-			users: "/users"
+			users: "/users",
+			games: "/games"
 		}
 	})
 })
@@ -39,6 +42,7 @@ app.get('/health', (req, res) => {
 // Protected routes (API key required)
 // Option 1: Protect all /users routes
 app.use('/users', validateApiKey, userRoutes)
+app.use('/games', validateApiKey, videoGameRoutes) 
 
 // Option 2: Only protect in production (easier for development)
 // app.use('/users', validateApiKeyProduction, userRoutes)
@@ -73,6 +77,11 @@ app.listen(config.port, () => {
 	console.log(`  POST   /users         - Create new user (protected)`)
 	console.log(`  PUT    /users/:id     - Update user (protected)`)
 	console.log(`  DELETE /users/:id     - Delete user (protected)`)
+	console.log(`  GET    /games         - Get all games (protected)`)
+	console.log(`  GET    /games/:id     - Get game by ID (protected)`)
+	console.log(`  POST   /games         - Create new game (protected)`)
+	console.log(`  PUT    /games/:id     - Update game (protected)`)
+	console.log(`  DELETE /games/:id     - Delete game (protected)`)
 })
 
 export default app
