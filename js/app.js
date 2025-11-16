@@ -1,7 +1,9 @@
 // =======================
 // CONFIG
 // =======================
-const API_BASE_URL = "http://localhost:3000";
+// const API_BASE_URL = "http://localhost:3000";
+const API_BASE_URL = "https://rest-api-krishan.onrender.com";
+
 
 
 // ⚠️ For a real project you would NOT expose the key in frontend.
