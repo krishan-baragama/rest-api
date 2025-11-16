@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>REST API Frontend</title>
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+  <header>
+    <h1>REST API Frontend</h1>
+    <p>Backend: <code>https://rest-api-krishan.onrender.com</code></p>
+  </header>
+
+  <main>
+    <!-- Tabs -->
+    <nav class="tabs">
+      <button class="tab-button active" data-target="users-section">Users</button>
+      <button class="tab-button" data-target="games-section">Games</button>
+    </nav>
+
+    <!-- USERS SECTION -->
+    <section id="users-section" class="tab-section active">
+      <h2>Users</h2>
+
+      <div class="grid">
+        <!-- Users List -->
+        <div class="card">
+          <h3>Users List</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Created At</th>
+              </tr>
+            </thead>
+            <tbody id="users-table-body">
+              <!-- Filled by JS -->
+            </tbody>
+          </table>
+          <p class="hint">Click a row to load it into the form for editing.</p>
+        </div>
+
+        <!-- User Form -->
+        <div class="card">
+          <h3 id="user-form-title">Create User</h3>
+          <form id="user-form">
+            <input type="hidden" id="user-id" />
+
+            <label>
+              Name:
+              <input type="text" id="user-name" required />
+            </label>
+
+            <label>
+              Email:
+              <input type="email" id="user-email" required />
+            </label>
+
+            <div class="form-actions">
+              <button type="submit" id="user-save-btn">Save</button>
+              <button type="button" id="user-reset-btn" class="secondary">Reset</button>
+              <button type="button" id="user-delete-btn" class="danger" disabled>Delete</button>
+            </div>
+          </form>
+
+          <div id="user-message" class="message"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GAMES SECTION -->
+    <section id="games-section" class="tab-section">
+      <h2>Games</h2>
+
+      <div class="grid">
+        <!-- Games List -->
+        <div class="card">
+          <h3>Games List</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Platform</th>
+                <th>Genre</th>
+                <th>Year</th>
+                <th>Rating</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody id="games-table-body">
+              <!-- Filled by JS -->
+            </tbody>
+          </table>
+          <p class="hint">Click a row to load it into the form for editing.</p>
+        </div>
+
+        <!-- Game Form -->
+        <div class="card">
+          <h3 id="game-form-title">Create Game</h3>
+          <form id="game-form">
+            <input type="hidden" id="game-id" />
+
+            <label>
+              Title:
+              <input type="text" id="game-title" required />
+            </label>
+
+            <label>
+              Platform:
+              <input type="text" id="game-platform" required />
+            </label>
+
+            <label>
+              Genre:
+              <input type="text" id="game-genre" />
+            </label>
+
+            <label>
+              Release Year:
+              <input type="number" id="game-release-year" />
+            </label>
+
+            <label>
+              Rating:
+              <input type="number" step="0.1" id="game-rating" />
+            </label>
+
+            <label>
+              Price:
+              <input type="number" step="0.01" id="game-price" />
+            </label>
+
+            <div class="form-actions">
+              <button type="submit" id="game-save-btn">Save</button>
+              <button type="button" id="game-reset-btn" class="secondary">Reset</button>
+              <button type="button" id="game-delete-btn" class="danger" disabled>Delete</button>
+            </div>
+          </form>
+
+          <div id="game-message" class="message"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <small>Powered by Node.js REST API 🚀</small>
+  </footer>
+
+  <script src="./js/app.js"></script>
+</body>
+</html>
